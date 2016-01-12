@@ -52,6 +52,9 @@ class ObjectHandler(object):
             query = self.query.filter(kwargs)
         return ObjectSet(self, query)
 
+    def rfilter(self, f):
+        return ObjectSet(self, self.query.filter(f))
+
     def count(self):
         return self.query.count().run()
 
