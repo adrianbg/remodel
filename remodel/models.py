@@ -85,8 +85,9 @@ class Model(object):
         if result['errors'] > 0:
             raise OperationError(result['first_error'])
 
-        # Force overwrite so that related caches are flushed
-        self.fields.__dict__ = result['changes'][0]['new_val']
+        if 'changes' in result:
+            # Force overwrite so that related caches are flushed
+            self.fields.__dict__ = result['changes'][0]['new_val']
 
         self._run_callbacks('after_save')
 
